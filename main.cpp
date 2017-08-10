@@ -37,7 +37,7 @@ void timeMeter(){
 void breakClock() {
     auto time0 = steady_clock::now();
     while(TRUE){
-        if (duration_cast<minutes>(steady_clock::now() - time0).count() > 2){
+        if (duration_cast<seconds>(steady_clock::now() - time0).count() > 50*60){
             std::cout << "in" << std::endl;
             MessageBox(nullptr, "Czas na przerwe\a\a\a!", "Uwaga, uwaga!!!", MB_OK);
             time0 = steady_clock::now();
@@ -49,8 +49,8 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
     std::promise<int> px;
     std::future<int> fx = px.get_future();
-//    HWND okno = GetConsoleWindow();
-//    ShowWindow( okno, SW_HIDE );
+    HWND okno = GetConsoleWindow();
+   ShowWindow( okno, SW_HIDE );
 
     std::thread thirtySek{timeMeter};
     std::thread breakThread{breakClock};
@@ -62,7 +62,7 @@ int main() {
 //    std::thread t2{fun2, std::move(fx)};
 //    t1.join();
 //    t2.join();
-//    ShowWindow( okno, SW_SHOW );
+    ShowWindow( okno, SW_SHOW );
 //    auto time1 = high_resolution_clock::now();
 //    std::cout << duration_cast<seconds>(time1-time0).count() << "s" << std::endl;
     std::cin.get();
