@@ -3,7 +3,6 @@
 #include <future>
 #include <windows.h>
 
-
 using namespace std::chrono;
 
 void fun1(std::promise<int> px){
@@ -25,22 +24,47 @@ void fun2(std::future<int> fx){
     }
 }
 
+void timeMeter(){
+    auto time = steady_clock::now();
+    while(true){
+        if(duration_cast<seconds>(steady_clock::now()-time).count()>30){
+            std::cout << "peek" << std::endl;
+            time = steady_clock::now();
+        }
+    }
+}
+
+void breakClock() {
+    auto time0 = steady_clock::now();
+    while(TRUE){
+        if (duration_cast<minutes>(steady_clock::now() - time0).count() > 2){
+            std::cout << "in" << std::endl;
+            MessageBox(nullptr, "Czas na przerwe\a\a\a!", "Uwaga, uwaga!!!", MB_OK);
+            time0 = steady_clock::now();
+        }
+    }
+}
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
     std::promise<int> px;
     std::future<int> fx = px.get_future();
-    HWND okno = GetConsoleWindow();
-    ShowWindow( okno, SW_HIDE );
-    MessageBox(nullptr, "Goodbye, cruel world!", "Note", MB_OK);
-    auto time0 = high_resolution_clock::now();
-    std::thread t1{fun1, std::move(px)};
-    std::thread t2{fun2, std::move(fx)};
-    t1.join();
-    t2.join();
-    ShowWindow( okno, SW_SHOW );
-    auto time1 = high_resolution_clock::now();
-    std::cout << duration_cast<seconds>(time1-time0).count() << "s" << std::endl;
+//    HWND okno = GetConsoleWindow();
+//    ShowWindow( okno, SW_HIDE );
+
+    std::thread thirtySek{timeMeter};
+    std::thread breakThread{breakClock};
+
+    thirtySek.join();
+    breakThread.join();
+//    auto time0 = high_resolution_clock::now();
+//    std::thread t1{fun1, std::move(px)};
+//    std::thread t2{fun2, std::move(fx)};
+//    t1.join();
+//    t2.join();
+//    ShowWindow( okno, SW_SHOW );
+//    auto time1 = high_resolution_clock::now();
+//    std::cout << duration_cast<seconds>(time1-time0).count() << "s" << std::endl;
     std::cin.get();
     std::cin.get();
     return 0;
