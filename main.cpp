@@ -38,8 +38,8 @@ void breakClock() {
     auto time0 = steady_clock::now();
     while(TRUE){
         if (duration_cast<seconds>(steady_clock::now() - time0).count() > 50*60){
-            std::cout << "in" << std::endl;
-            MessageBox(nullptr, "Czas na przerwe\a\a\a!", "Uwaga, uwaga!!!", MB_OK);
+            std::cout << "in\a\a\a" << std::endl;
+            MessageBox(nullptr, "Czas na przerwe!", "Uwaga, uwaga!!!", MB_OK);
             time0 = steady_clock::now();
         }
     }
