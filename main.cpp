@@ -37,8 +37,8 @@ void timeMeter(){
 void breakClock() {
     auto time0 = steady_clock::now();
     while(TRUE){
-        if (duration_cast<seconds>(steady_clock::now() - time0).count() > 50*60){
-            std::cout << "in\a\a\a" << std::endl;
+        if (duration_cast<seconds>(steady_clock::now() - time0).count() >= 2/*50*60*/){
+            std::cout << "in\a" << std::endl;
             MessageBox(nullptr, "Czas na przerwe!", "Uwaga, uwaga!!!", MB_OK);
             time0 = steady_clock::now();
         }
