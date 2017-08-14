@@ -29,7 +29,7 @@ void timeMeter(){
     while(true){
         if(duration_cast<seconds>(steady_clock::now()-time).count()>30){
             std::cout << "peek" << std::endl;
-            time = steady_clock::now();
+            time = steady_clock::now();//
         }
     }
 }
