@@ -35,6 +35,7 @@ void timeMeter(){
 }
 void lunchBreak(int duration = 30){
     std::this_thread::sleep_for((std::chrono::seconds(duration*60)));
+    std::async(MessageBox, nullptr, "Czas na obiad!", "Uwaga, uwaga!!!", MB_OK);
 }
 void breakClock() {
     while(TRUE){
