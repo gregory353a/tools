@@ -37,7 +37,6 @@ void lunchBreak(int duration = 30){
     std::this_thread::sleep_for((std::chrono::seconds(duration*60)));
 }
 void breakClock() {
-    auto time0 = steady_clock::now();
     while(TRUE){
         std::this_thread::sleep_for(std::chrono::seconds(50*60));
         {
