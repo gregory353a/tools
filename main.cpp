@@ -24,16 +24,6 @@ void fun2(std::future<int> fx){
     }
 }
 
-void timeMeter(){
-    auto time = steady_clock::now();
-    while(true){
-        if(duration_cast<seconds>(steady_clock::now()-time).count()>30){
-            std::cout << "peek" << std::endl;
-            time = steady_clock::now();//
-        }
-    }
-}
-
 void workTime(int duration = 8){
     std::this_thread::sleep_for(std::chrono::seconds(duration*60*60-15*60));
     std::cout<<"End of work \a"<<std::endl;
@@ -74,10 +64,8 @@ int main() {
     HWND okno = GetConsoleWindow();
    ShowWindow( okno, SW_HIDE );
 
-    std::thread thirtySek{timeMeter};
     std::thread breakThread{breakClock};
 
-    thirtySek.join();
     breakThread.join();
 //    auto time0 = high_resolution_clock::now();
 //    std::thread t1{fun1, std::move(px)};
