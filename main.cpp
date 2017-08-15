@@ -30,7 +30,7 @@ void workTime(int duration = 8){
     MessageBox(nullptr, "Szykuj się do wyjścia", "Koniec pracy", MB_OK);
     //todo kill other threads
     std::this_thread::sleep_for(std::chrono::seconds(15*60));
-    MessageBox(nullptr, "Jeszcze tu jesteś?", "Robi się niefajnie" MB_OK)
+    MessageBox(nullptr, "Jeszcze tu jesteś?", "Robi się niefajnie", MB_OK);
 }
 
 
