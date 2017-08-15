@@ -33,18 +33,37 @@ void timeMeter(){
         }
     }
 }
+
+void workTime(int duration = 8){
+    std::this_thread::sleep_for(std::chrono::seconds(duration*60*60-15*60));
+    std::cout<<"End of work \a"<<std::endl;
+    MessageBox(nullptr, "Szykuj się do wyjścia", "Koniec pracy", MB_OK);
+    //todo kill other threads
+    std::this_thread::sleep_for(std::chrono::seconds(15*60));
+    MessageBox(nullptr, "Jeszcze tu jesteś?", "Robi się niefajnie" MB_OK)
+}
+
+
 void lunchBreak(int duration = 30){
+    //todo write when you should go to lunch
     std::this_thread::sleep_for((std::chrono::seconds(duration*60)));
     std::async(MessageBox, nullptr, "Czas na obiad!", "Uwaga, uwaga!!!", MB_OK);
 }
+
 void breakClock() {
     while(TRUE){
-        std::this_thread::sleep_for(std::chrono::seconds(50*60));
+        std::this_thread::sleep_for(std::chrono::seconds(60*60));
         {
-            std::cout << "in\a" << std::endl;
+            std::cout << "Break \a" << std::endl;
             MessageBox(nullptr, "Czas na przerwe!", "Uwaga, uwaga!!!", MB_OK);
         }
-        std::this_thread::sleep_for(std::chrono::seconds(10*60));//to rm
+        auto breakTimeStart = high_resolution_clock::now();
+        MessageBox(nullptr, "Przerwa", "Przerwa", MB_OK);
+        auto breakDuration =  duration_cast<minutes>(high_resolution_clock::now()-breakTimeStart).count();
+        std::string durationNotify = "Przerwa trwała: " + breakDuration;
+        durationNotify += " minut";
+        MessageBox(nullptr, durationNotify.c_str(), "Długość przerwy", MB_OK);
+    //todo zapis do pliku
     }
 }
 
